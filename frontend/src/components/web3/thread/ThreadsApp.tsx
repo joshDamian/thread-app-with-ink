@@ -27,7 +27,7 @@ const ThreadsApp: FC<ThreadsAppProps> = ({ threadManagerContract }) => {
     'threads',
     () => getAllThreads({ typedContract: threadManagerContract }),
     {
-      refreshInterval: 1000,
+      refreshInterval: 10000,
     },
   )
 
