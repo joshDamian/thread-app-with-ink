@@ -1,0 +1,26 @@
+[package]
+name = "thread_manager"
+version = "0.0.1"
+authors = ["Josh <avoajajoshua@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+ink = { version = "4.3.0", default-features = false }
+thread = { path = "../thread", default-features = false, features = [
+    "ink-as-dependency",
+] }
+
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = [
+    "derive",
+] }
+scale-info = { version = "2", default-features = false, features = [
+    "derive",
+], optional = true }
+
+[lib]
+path = "lib.rs"
+
+[features]
+default = ["std"]
+std = ["ink/std", "scale/std", "scale-info/std", "thread/std"]
+ink-as-dependency = []
