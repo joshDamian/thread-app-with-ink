@@ -20,7 +20,13 @@ const ThreadFullLoader: FC<ThreadFullLoaderProps> = ({ threadId, getThreadInfo }
   const { api, activeAccount, activeSigner } = useInkathon()
 
   const key = `/threads/${threadId}/preview`
-  const { data: thread, error, mutate } = useSWR<ThreadPreview>(key, () => getThreadInfo(threadId))
+  const {
+    data: thread,
+    error,
+    mutate,
+  } = useSWR<ThreadPreview>(key, () => getThreadInfo(threadId), {
+    refreshInterval: 2000,
+  })
 
   if (error) return <div>Error loading thread</div>
 
