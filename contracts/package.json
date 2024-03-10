@@ -1,5 +1,5 @@
 {
-  "name": "@inkathon/contracts",
+  "name": "@threadhub/contracts",
   "type": "module",
   "private": true,
   "version": "0.6.0",

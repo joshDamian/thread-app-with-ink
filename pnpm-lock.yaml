@@ -101,7 +101,7 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.3.4
         version: 3.3.4(react-hook-form@7.50.1)
-      '@inkathon/contracts':
+      '@threadhub/contracts':
         specifier: workspace:*
         version: link:../contracts
       '@polkadot/api':

@@ -1,5 +1,5 @@
 {
-  "name": "@inkathon/frontend",
+  "name": "@threadhub/frontend",
   "private": true,
   "version": "0.6.0",
   "scripts": {
@@ -20,7 +20,7 @@
     "@azns/resolver-core": "^1.6.0",
     "@azns/resolver-react": "^1.6.0",
     "@hookform/resolvers": "^3.3.4",
-    "@inkathon/contracts": "workspace:*",
+    "@threadhub/contracts": "workspace:*",
     "@polkadot/api": "^10.11.2",
     "@polkadot/api-contract": "^10.11.2",
     "@polkadot/extension-dapp": "^0.46.6",

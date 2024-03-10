@@ -1,8 +1,8 @@
 import { ThreadPreview } from '@/data/schemas/thread'
-import type ThreadContract from '@inkathon/contracts/typed-contracts/contracts/thread'
-import ThreadManagerContract from '@inkathon/contracts/typed-contracts/contracts/thread_manager'
 import { ApiPromise } from '@polkadot/api'
 import { contractQuery, decodeOutput } from '@scio-labs/use-inkathon/helpers'
+import type ThreadContract from '@threadhub/contracts/typed-contracts/contracts/thread'
+import ThreadManagerContract from '@threadhub/contracts/typed-contracts/contracts/thread_manager'
 
 import { getThreadContractPromise } from './utils'
 

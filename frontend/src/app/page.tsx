@@ -1,8 +1,8 @@
 'use client'
 
 import { ContractIds } from '@/deployments/deployments'
-import ThreadManagerContract from '@inkathon/contracts/typed-contracts/contracts/thread_manager'
 import { useRegisteredTypedContract } from '@scio-labs/use-inkathon'
+import ThreadManagerContract from '@threadhub/contracts/typed-contracts/contracts/thread_manager'
 
 import ThreadsApp from '@/components/web3/thread/ThreadsApp'
 
