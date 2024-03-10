@@ -30,12 +30,17 @@ const ThreadsApp: FC<ThreadsAppProps> = () => {
     ThreadManagerContract,
   )
 
-  const { data: threadIds, error: threadsFetchError } = useSWR('threads', () =>
-    typedContract
-      ? getAllThreads({
-          typedContract: typedContract,
-        })
-      : undefined,
+  const { data: threadIds, error: threadsFetchError } = useSWR(
+    'threads',
+    () =>
+      typedContract
+        ? getAllThreads({
+            typedContract: typedContract,
+          })
+        : undefined,
+    {
+      refreshInterval: 2000,
+    },
   )
 
   if (threadsFetchError) return <div>Error Loading Threads</div>
