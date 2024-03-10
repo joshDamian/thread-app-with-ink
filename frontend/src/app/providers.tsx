@@ -3,9 +3,14 @@
 import { PropsWithChildren } from 'react'
 
 import { getDeployments } from '@/deployments/deployments'
+import { WsProvider } from '@polkadot/api'
 import { UseInkathonProvider } from '@scio-labs/use-inkathon'
 
 import { env } from '@/config/environment'
+
+const optionalApiOptions = env.webSocketUrl
+  ? { provider: new WsProvider(env.webSocketUrl) }
+  : undefined
 
 export default function ClientProviders({ children }: PropsWithChildren) {
   return (
@@ -14,6 +19,7 @@ export default function ClientProviders({ children }: PropsWithChildren) {
       connectOnInit={true}
       defaultChain={env.defaultChain}
       deployments={getDeployments()}
+      apiOptions={optionalApiOptions}
     >
       {children}
     </UseInkathonProvider>

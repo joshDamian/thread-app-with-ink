@@ -12,4 +12,6 @@ export const env = {
 
   defaultChain: process.env.NEXT_PUBLIC_DEFAULT_CHAIN!,
   supportedChains: getSupportedChains(),
+
+  webSocketUrl: process.env.NEXT_PUBLIC_WEBSOCKET_URL!,
 }
