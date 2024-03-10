@@ -21,26 +21,27 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'ink!athon Boilerplate',
-  description: 'Full-Stack DApp Boilerplate for ink! Smart Contracts',
+  title: 'ThreadHub',
+  description:
+    'A decentralized platform for sharing opinions, where users can express their opinions via threads and receive engagements from other users. Picture Twitter, but on the blockchain.',
   metadataBase: new URL(env.url),
   robots: env.isProduction ? 'all' : 'noindex,nofollow',
   openGraph: {
     type: 'website',
     locale: 'en',
     url: env.url,
-    siteName: 'ink!athon Boilerplate',
+    siteName: 'ThreadHub',
     images: [
       {
-        url: '/images/inkathon-og-banner.jpg',
-        width: 1280,
-        height: 640,
+        url: '/images/thread-hub-og-banner.png',
+        width: 657,
+        height: 626,
       },
     ],
   },
   twitter: {
-    site: '@scio_xyz',
-    creator: '@scio_xyz',
+    site: '@DevJosh__',
+    creator: '@DevJosh__',
     card: 'summary_large_image',
   },
 }
