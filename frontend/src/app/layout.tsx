@@ -4,9 +4,11 @@ import { PropsWithChildren } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import { ToastConfig } from '@/app/toast-config'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import AppLayout from '@/components/web3/AppLayout'
 import { env } from '@/config/environment'
 import { cn } from '@/utils/cn'
 
@@ -48,7 +50,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" className={cn('dark', GeistSans.variable, GeistMono.variable)}>
       <body>
         <ClientProviders>
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            <AppLayout>{children}</AppLayout>
+          </TooltipProvider>
           <ToastConfig />
         </ClientProviders>
 
