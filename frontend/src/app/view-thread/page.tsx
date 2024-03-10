@@ -1,17 +1,20 @@
 'use client'
 
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { getThreadInfo } from '@/data/adapters/browser/thread/get'
 import { useInkathon } from '@scio-labs/use-inkathon'
 
 import ThreadFullLoader from '@/components/web3/thread/ThreadFullLoader'
 
-export default function ViewThreadPage() {
+interface ViewThreadPageProps {
+  searchParams: { thread: string }
+}
+
+export default function ViewThreadPage({ searchParams: { thread } }: ViewThreadPageProps) {
   const { api } = useInkathon()
 
-  const searchParams = useSearchParams()
-  const threadId = searchParams.get('thread')
+  const threadId = thread
 
   if (!threadId) {
     redirect('/')
