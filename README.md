@@ -7,16 +7,39 @@ ThreadHub is a decentralized opinion sharing platform, where users can express t
 This project is a concept that demonstrates the possibilities that can be built on Polkadot and was submitted for the [Encode X Polkadot Hackathon.](https://www.encode.club/encode-polkadot-hackathon)
 
 ## Features
-- **Authentication:** 
+### Authentication:
+Users can connect their polkadot wallets to the platform, to access threads and for signing transactions.
 
-   Users can connect their polkadot wallets to the platform, for signing transactions.
-- **Thread Creation:**  
+![image](https://github.com/joshDamian/thread-app-with-ink/assets/67528283/7f0d00ea-7e74-40c4-8aa0-9644275de3d1)
 
-## Getting started 🚀
+### Thread Creation:
+Users can create threads by providing a message. A thread is linked to the creator's account and only them can update the message in the thread.
 
-### 1. Run the frontend
+![image](https://github.com/joshDamian/thread-app-with-ink/assets/67528283/c0285a81-db00-46ad-b902-097425390598)
 
-The frontend works out of the box, without a local node running, as the sample contract is pre-deployed on certain live testnets (i.e. `alephzero-testnet` and `shibuya`). Necessary deployment metadata and addresses are provided under `contracts/deployments/`.
+### Liking a Thread:
+Users can like theirs and other users threads/replies. Likes are linked to an account and are unique, so they cannot be duplicated.
+
+![image](https://github.com/joshDamian/thread-app-with-ink/assets/67528283/9d35ec30-1ed6-4b27-bf3e-6aa46857d136)
+
+### Replying a Thread:
+Threads on ThreadHub can be nested, where comments and replies are subthreads and behave exactly like threads, which means they can have subthreads too. 
+
+![image](https://github.com/joshDamian/thread-app-with-ink/assets/67528283/0f5f8fe9-295c-4482-b138-d0895aab3f35)
+
+## Technical Details
+### Stack
+- Monorepo Workspace with `contracts/` and `frontend/` directories as packages.
+- Package Manager: `pnpm`
+- Smart Contract Development: Rust, ink!, `cargo-contract`, `substrate-contracts-node`
+- Frontend: Next.js (app-dir), React, TypeScript
+  - Contract Interactions: [`polkadot-js`](https://polkadot.js.org/), [`useInkathon`](https://github.com/scio-labs/use-inkathon) React Hooks & Utility Library
+  - Styling: `shadcn/ui`, `tailwindcss`
+  - Client-side Data Fecthing: `swr`
+  - Linting & Formatting: `eslint`, `prettier`, `simple-git-hooks`, `lint-staged`
+- Type-safe contract generation via [`typechain-polkadot`](https://github.com/Brushfam/typechain-polkadot)
+
+### Testing Instructions
 
 > **Pre-requisites:**
 >
@@ -24,24 +47,9 @@ The frontend works out of the box, without a local node running, as the sample c
 > - Install [pnpm](https://pnpm.io/installation) (recommended via [Node.js Corepack](https://nodejs.org/api/corepack.html) or `npm i -g pnpm`)
 > - Clone this repository
 
-<details>
-<summary><strong>Special Instructions for Windows Users</strong></summary>
+#### 1. The Frontend
 
-> [!IMPORTANT]  
-> Windows users must either use [WSL](https://learn.microsoft.com/windows/wsl/install) (recommended) or a custom shell like [Git Bash](https://git-scm.com/downloads). PowerShell is not supported.
-
-> **Pre-requisites when using WSL for Linux:**
->
-> - Install [WSL](https://learn.microsoft.com/windows/wsl/install) and execute _all_ commands in the WSL terminal
-> - Setup Node.js v18+ (recommended via [nvm](https://github.com/nvm-sh/nvm) with `nvm install 18`)
-> - Install the following npm packages globally:
-> - `npm i -g npm`
-> - `npm i -g pnpm node-gyp make`
-> - Clone this repository into the WSL file system (e.g. `/home/<user>/inkathon`).
->
-> **Tip:** You can enter `\\wsl$\` in the top bar of the Windows Explorer to access the WSL file system visually.
-
-</details>
+The frontend works out of the box, without a local node running, as the `thread_manager` contract is pre-deployed on `alephzero-testnet`. Necessary deployment metadata and addresses are provided under `contracts/deployments/`.
 
 ```bash
 # Install dependencies (once)
@@ -52,11 +60,9 @@ pnpm install
 pnpm run dev
 ```
 
-Optionally, to enable [`simple-git-hooks`](https://github.com/toplenboren/simple-git-hooks) (for automatic linting & formatting when committing), you can run the following command once: `pnpm simple-git-hooks`.
+#### 2. Building & deploying `thread_manager` on a local node
 
-### 2. Build & deploy contracts on a local node
-
-The `contracts/package.json` file contains shorthand scripts for building, testing, and deploying your contracts. To run these scripts, you need to set `contracts/` as the active working directory in your terminal.
+The `contracts/package.json` file contains shorthand scripts for building, testing, and deploying the `thread_manager` . To run these scripts, set `contracts/` as the active working directory in your terminal.
 
 > **Pre-requisites:**
 >
@@ -76,35 +82,14 @@ pnpm run node
 
 # Deploy the contracts on the local node
 pnpm run deploy
+
+# Upload the `thread` contract `code_hash` onchain to enabel Cross-Contract calling in the `thread_manager`contract
+cargo contract upload --manifest-path src/thread/Cargo.toml --suri //Alice -x
 ```
 
-Alternatively, you can also deploy contracts manually using [Contracts UI](https://contracts-ui.substrate.io/) (`pnpm contracts-ui`) in the browser.
-
-### 3. Connect the frontend to the local node
+#### 3. Connect the frontend to the local node
 
 Open the `frontend/.env.local` file and set the `NEXT_PUBLIC_DEFAULT_CHAIN` variable to `development`. Then restart the frontend and you should be able to interact with the contracts deployed on your local node.
-
-_Read more about environment variables and all available chain constants in the [Environment Variables](#environment-variables) section below._
-
-## The Stack 🥞
-
-<details>
-<summary><strong>The Stack in Detail</strong></summary>
-
-- Monorepo Workspace with `contracts/` and `frontend/` directories as packages.
-- Package Manager: `pnpm` or `yarn@stable` (Read more in the [FAQs](#faqs--troubleshooting) section below)
-- Smart Contract Development: Rust, ink!, `cargo-contract`, `substrate-contracts-node`
-- Frontend: Next.js (app-dir), React, TypeScript
-  - Contract Interactions: `polkadot-js`, [`useInkathon`](https://github.com/scio-labs/use-inkathon) React Hooks & Utility Library (alternatively: [`useInk`](https://use.ink/frontend/getting-started))
-  - Styling: `shadcn/ui`, `tailwindcss`
-  - Linting & Formatting: `eslint`, `prettier`, `simple-git-hooks`, `lint-staged`
-- Type-safe contract generation via [`typechain-polkadot`](https://github.com/Brushfam/typechain-polkadot)
-
-<small>Styling, linting, and formatting libraries can be fully dropped or replaced with alternatives.</small>
-
-</details>
-
-![inkathon Stack Diagram](inkathon-stack-diagram.png)
 
 ### Environment Variables
 
@@ -119,28 +104,6 @@ All environment variables are imported from `process.env` in [`frontend/src/conf
 
 <small>\*️⃣ Required </small>
 
-#### Supported Chains
-
-One key element making this boilerplate so flexible is the usage of environment variables to configure the active network in the frontend. This is done by setting the `NEXT_PUBLIC_DEFAULT_CHAIN` variable in the `frontend/.env.local` file, or in the deployment settings respectively.
-
-If your network is not provided by the `use-inkathon` library, you can add it manually by creating a new [`SubstrateChain`](https://github.com/scio-labs/use-inkathon/blob/main/src/chains.ts#L4) object. If you think a chain is missing, please open an issue or PR.
 
 > [!IMPORTANT]  
 > All supported chain constants [can be found here](https://github.com/scio-labs/use-inkathon/blob/main/src/chains.ts) in the `scio-labs/use-inkathon` repository.
-
-### Contract Deployment
-
-In the [Getting Started](#getting-started) section above, we've already deployed the sample `Greeter` contract on a local node. To target a live network, we can use the `CHAIN` environment variable when running the `deploy` script.
-
-```bash
-CHAIN=alephzero-testnet pnpm run deploy
-```
-
-Further, dynamically loaded environment files with the `.env.{chain}` naming convention can be used to add additional configuration about the deployer account.
-
-```bash
-# .env.alephzero-testnet
-ACCOUNT_URI=bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice
-```
-
-When running the same script again, this deployer account defined there will be used to sign the extrinsic.
