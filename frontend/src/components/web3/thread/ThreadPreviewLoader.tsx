@@ -83,7 +83,7 @@ const ThreadPreviewLoader: FC<ThreadPreviewLoaderProps> = ({
         <span>Author: {truncateHash(thread.creator)}</span>
         <span className="text-gray-400">{humanReadableCreatedAt}</span>
       </div>
-      <div className="p-3">{thread.message}</div>
+      <div className="whitespace-pre-wrap p-3">{thread.message}</div>
       <div className="grid grid-cols-3 gap-4 rounded-b-md p-3 sm:gap-6">
         <div className="flex items-center justify-center">
           {hasLiked ? (
