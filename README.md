@@ -1,8 +1,8 @@
-![inkathon Devtooling Banner](thread-hub-banner.png)
+![ThreadHub Banner](thread-hub-banner.png)
 
 # ThreadHub
 
-ThreadHub is a decentralized opinion sharing platform, where users can express their opinions via threads and receive engagements from other users. Think twitter, but onchain.
+ThreadHub is a decentralized platform for sharing opinions, where users can express their opinions via threads and receive engagements from other users. Picture Twitter, but on the blockchain.
 
 This project is a concept that demonstrates the possibilities that can be built on Polkadot and was submitted for the [Encode X Polkadot Hackathon.](https://www.encode.club/encode-polkadot-hackathon)
 
