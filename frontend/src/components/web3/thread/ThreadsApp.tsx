@@ -23,13 +23,13 @@ const ThreadsApp: FC<ThreadsAppProps> = ({ threadManagerContract }) => {
   const { api, activeAccount, activeSigner } = useInkathon()
   const { contract, address: contractAddress } = useRegisteredContract(ContractIds.ThreadManager)
 
-  const { data: threadIds, error: threadsFetchError } = useSWR(
-    'threads',
-    () => getAllThreads({ typedContract: threadManagerContract }),
-    {
-      refreshInterval: 10000,
-    },
-  )
+  const {
+    data: threadIds,
+    error: threadsFetchError,
+    mutate,
+  } = useSWR('threads', () => getAllThreads({ typedContract: threadManagerContract }), {
+    refreshInterval: 10000,
+  })
 
   if (threadsFetchError) return <div>Error Loading Threads</div>
 
@@ -70,12 +70,14 @@ const ThreadsApp: FC<ThreadsAppProps> = ({ threadManagerContract }) => {
       return
     }
 
-    return await createNewThread({
+    await createNewThread({
       threadManagerContract: contract,
       api,
       userAccount: activeAccount.address,
       message,
     })
+
+    await mutate()
   }
 
   return (

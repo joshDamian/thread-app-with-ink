@@ -20,7 +20,7 @@ const ThreadFullLoader: FC<ThreadFullLoaderProps> = ({ threadId, getThreadInfo }
   const { api, activeAccount, activeSigner } = useInkathon()
 
   const key = `/threads/${threadId}/preview`
-  const { data: thread, error } = useSWR<ThreadPreview>(key, () => getThreadInfo(threadId))
+  const { data: thread, error, mutate } = useSWR<ThreadPreview>(key, () => getThreadInfo(threadId))
 
   if (error) return <div>Error loading thread</div>
 
@@ -64,12 +64,14 @@ const ThreadFullLoader: FC<ThreadFullLoaderProps> = ({ threadId, getThreadInfo }
       return
     }
 
-    return await commentOnThread({
+    await commentOnThread({
       api,
       userAccount: author,
       comment: message,
       threadContractAddress: threadId,
     })
+
+    await mutate()
   }
 
   return (
