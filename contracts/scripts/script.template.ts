@@ -23,23 +23,24 @@ import {
 const main = async () => {
   const { api, account } = await initPolkadotJs()
 
-  // Deploy greeter contract
-  const { abi, wasm } = await getDeploymentData('greeter')
-  const { address } = await deployContract(api, account, abi, wasm, 'default', [])
+  // Deploy thread_manager contract
+  const { abi, wasm } = await getDeploymentData('thread_manager')
+  const { abi: thread_abi } = await getDeploymentData('thread')
+  const { address } = await deployContract(api, account, abi, wasm, 'new', [thread_abi.source.hash])
   const contract = new ContractPromise(api, abi, address)
 
   // Update message
   try {
-    await contractTx(api, account, contract, 'set_message', {}, ['Hello, script!'])
-    console.log('\nSuccessfully updated greeting')
+    await contractTx(api, account, contract, 'create_thread', {}, ['Hello, script!'])
+    console.log('\nSuccessfully created a new thread')
   } catch (error) {
-    console.error('Error while updating greeting', error)
+    console.error('Error while creating thread', error)
   }
 
   // Read message
-  const result = await contractQuery(api, '', contract, 'greet')
-  const { decodedOutput } = decodeOutput(result, contract, 'greet')
-  console.log('\nQueried greeting:', decodedOutput)
+  const result = await contractQuery(api, '', contract, 'getThreads')
+  const { decodedOutput } = decodeOutput(result, contract, 'getThreads')
+  console.log('\nQueried threads:', decodedOutput)
 }
 
 main()
