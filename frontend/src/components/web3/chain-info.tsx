@@ -49,8 +49,8 @@ export const ChainInfo: FC = () => {
 
   return (
     <>
-      <div className="flex max-w-[22rem] grow flex-col gap-4">
-        <h2 className="text-center font-mono text-gray-400">Chain Info</h2>
+      <div className="flex w-full max-w-[22rem] grow flex-col gap-4 sm:max-w-full">
+        <h2 className="text-left font-mono text-gray-400">Chain Info</h2>
 
         <Card>
           <CardContent className="pb-3 pt-6">
