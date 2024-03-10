@@ -26,7 +26,7 @@ const ThreadFullLoader: FC<ThreadFullLoaderProps> = ({ threadId, getThreadInfo }
 
   if (!thread)
     return (
-      <div className="flex flex-col gap-8">
+      <div className="flex max-w-[620px] flex-col gap-8">
         <div className="w-full rounded-md border border-gray-400">
           <div className="rounded-t-md border-b p-3">
             <Skeleton count={2} width={'100%'} />
@@ -36,12 +36,11 @@ const ThreadFullLoader: FC<ThreadFullLoaderProps> = ({ threadId, getThreadInfo }
           </div>
           <div className="grid grid-cols-3 gap-4 rounded-b-md border-t p-3 sm:gap-6">
             {[1, 2, 3].map((i) => (
-              <Skeleton key={i} height={28} width="100%" />
+              <Skeleton key={i} height={45} width="100%" />
             ))}
           </div>
         </div>
-        <Skeleton height={28} width={'100%'} />
-        <Skeleton height={28} width={'100%'} />
+        <Skeleton height={65} width={'100%'} />
       </div>
     )
 
